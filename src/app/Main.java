@@ -19,15 +19,46 @@ public class Main {
             System.out.print("Enter choice: ");
 
             int choice = sc.nextInt();
+            sc.nextLine(); // consume newline
 
             switch (choice) {
                 case 1:
-                    Student s = new Student(1, "Alice", "alice@mail.com", "CSE", 3);
+                    System.out.print("Enter ID: ");
+                    int sid = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter Name: ");
+                    String sname = sc.nextLine();
+
+                    System.out.print("Enter Email: ");
+                    String semail = sc.nextLine();
+
+                    System.out.print("Enter Branch: ");
+                    String branch = sc.nextLine();
+
+                    System.out.print("Enter Year: ");
+                    int year = sc.nextInt();
+                    sc.nextLine();
+
+                    Student s = new Student(sid, sname, semail, branch, year);
                     service.addUser(s);
                     break;
 
                 case 2:
-                    Recruiter r = new Recruiter(101, "Bob", "bob@company.com", "TechCorp");
+                    System.out.print("Enter ID: ");
+                    int rid = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter Name: ");
+                    String rname = sc.nextLine();
+
+                    System.out.print("Enter Email: ");
+                    String remail = sc.nextLine();
+
+                    System.out.print("Enter Company Name: ");
+                    String company = sc.nextLine();
+
+                    Recruiter r = new Recruiter(rid, rname, remail, company);
                     service.addUser(r);
                     break;
 
