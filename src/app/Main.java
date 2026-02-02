@@ -6,7 +6,9 @@ import model.Recruiter;
 import service.UserService;
 
 public class Main {
+
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         UserService service = new UserService();
 
@@ -22,16 +24,27 @@ public class Main {
             sc.nextLine(); // consume newline
 
             switch (choice) {
+
                 case 1:
                     System.out.print("Enter ID: ");
                     int sid = sc.nextInt();
                     sc.nextLine();
+
+                    if (!service.isIdUnique(sid)) {
+                        System.out.println("ID already exists");
+                        break;
+                    }
 
                     System.out.print("Enter Name: ");
                     String sname = sc.nextLine();
 
                     System.out.print("Enter Email: ");
                     String semail = sc.nextLine();
+
+                    if (!service.isEmailValid(semail)) {
+                        System.out.println("Invalid email format");
+                        break;
+                    }
 
                     System.out.print("Enter Branch: ");
                     String branch = sc.nextLine();
@@ -40,8 +53,8 @@ public class Main {
                     int year = sc.nextInt();
                     sc.nextLine();
 
-                    Student s = new Student(sid, sname, semail, branch, year);
-                    service.addUser(s);
+                    Student student = new Student(sid, sname, semail, branch, year);
+                    service.addUser(student);
                     break;
 
                 case 2:
@@ -49,17 +62,27 @@ public class Main {
                     int rid = sc.nextInt();
                     sc.nextLine();
 
+                    if (!service.isIdUnique(rid)) {
+                        System.out.println("ID already exists");
+                        break;
+                    }
+
                     System.out.print("Enter Name: ");
                     String rname = sc.nextLine();
 
                     System.out.print("Enter Email: ");
                     String remail = sc.nextLine();
 
+                    if (!service.isEmailValid(remail)) {
+                        System.out.println("Invalid email format");
+                        break;
+                    }
+
                     System.out.print("Enter Company Name: ");
                     String company = sc.nextLine();
 
-                    Recruiter r = new Recruiter(rid, rname, remail, company);
-                    service.addUser(r);
+                    Recruiter recruiter = new Recruiter(rid, rname, remail, company);
+                    service.addUser(recruiter);
                     break;
 
                 case 3:

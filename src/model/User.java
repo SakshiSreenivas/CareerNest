@@ -11,6 +11,11 @@ public class User {
         this.email = email;
     }
 
+    // ✅ ADD THIS METHOD
+    public int getId() {
+        return id;
+    }
+
     public void displayInfo() {
         System.out.println("ID: " + id);
         System.out.println("Name: " + name);
