@@ -46,7 +46,7 @@ public class Main {
                     sc.nextLine();
 
                     if (!service.isIdUnique(sid)) {
-                        System.out.println("ID already exists ❌");
+                        System.out.println("ID already exists !");
                         break;
                     }
 
@@ -57,7 +57,7 @@ public class Main {
                     String semail = sc.nextLine();
 
                     if (!service.isEmailValid(semail)) {
-                        System.out.println("Invalid email format ❌");
+                        System.out.println("Invalid email format !");
                         break;
                     }
 
@@ -87,7 +87,7 @@ public class Main {
                     sc.nextLine();
 
                     if (!service.isIdUnique(rid)) {
-                        System.out.println("ID already exists ❌");
+                        System.out.println("ID already exists !");
                         break;
                     }
 
@@ -98,7 +98,7 @@ public class Main {
                     String remail = sc.nextLine();
 
                     if (!service.isEmailValid(remail)) {
-                        System.out.println("Invalid email format ❌");
+                        System.out.println("Invalid email format !");
                         break;
                     }
 
@@ -123,7 +123,7 @@ public class Main {
                  * CASE 4 → Exit System
                  */
                 case 4:
-                    System.out.println("Exiting CareerNest 👋");
+                    System.out.println("Exiting CareerNest... ");
                     sc.close();
                     return;
 
@@ -131,7 +131,7 @@ public class Main {
                  * Default → Invalid input
                  */
                 default:
-                    System.out.println("Invalid choice ⚠️");
+                    System.out.println("Invalid choice !");
             }
         }
     }

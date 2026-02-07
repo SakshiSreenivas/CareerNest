@@ -60,10 +60,15 @@ public class UserService {
      */
     public boolean isEmailValid(String email) {
 
-        return email != null &&
-               email.contains("@") &&
-               email.contains(".");
-    }
+    if (email == null) return false;
+
+    int atPos = email.indexOf("@");
+    int dotPos = email.lastIndexOf(".");
+
+    return atPos > 0 &&
+           dotPos > atPos + 1 &&
+           dotPos < email.length() - 1;
+}
 
     /*
      * Ensures ID is unique before adding.
