@@ -27,7 +27,10 @@ public class Main {
             System.out.println("1. Add Student");
             System.out.println("2. Add Recruiter");
             System.out.println("3. View All Users");
-            System.out.println("4. Exit");
+            System.out.println("4. Search User");
+            System.out.println("5. Delete User");
+            System.out.println("6. Update Email");
+            System.out.println("7. Exit");
             System.out.print("Enter choice: ");
 
             int choice = sc.nextInt();
@@ -119,19 +122,34 @@ public class Main {
                     service.displayAllUsers();
                     break;
 
-                /*
-                 * CASE 4 → Exit System
-                 */
                 case 4:
-                    System.out.println("Exiting CareerNest... ");
+                    System.out.print("Enter ID to search: ");
+                    int searchId = sc.nextInt();
+                    service.searchUserById(searchId);
+                    break;
+
+                case 5:
+                    System.out.print("Enter ID to delete: ");
+                    int deleteId = sc.nextInt();
+                    service.deleteUser(deleteId);
+                    break;
+
+                case 6:
+                    System.out.print("Enter ID: ");
+                    int uid = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter new Email: ");
+                    String newEmail = sc.nextLine();
+
+                    service.updateEmail(uid, newEmail);
+                    break;
+
+                case 7:
+                    System.out.println("Exiting...");
                     sc.close();
                     return;
 
-                /*
-                 * Default → Invalid input
-                 */
-                default:
-                    System.out.println("Invalid choice !");
             }
         }
     }

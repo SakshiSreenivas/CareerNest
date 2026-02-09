@@ -1,6 +1,7 @@
 package model;
 
 public class User {
+
     protected int id;
     protected String name;
     protected String email;
@@ -11,9 +12,13 @@ public class User {
         this.email = email;
     }
 
-    // ✅ ADD THIS METHOD
     public int getId() {
         return id;
+    }
+
+    // ✅ NEW SETTER
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void displayInfo() {

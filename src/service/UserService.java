@@ -2,50 +2,30 @@ package service;
 
 import model.User;
 
-/*
- * UserService handles all backend logic related to users.
- * This is similar to a Service layer in real backend frameworks
- * like Spring Boot.
- */
 public class UserService {
 
-    // Temporary storage (will later become Database)
     private User[] users = new User[10];
-
-    // Tracks number of users added
     private int count = 0;
 
-    /*
-     * Adds a new user to storage.
-     * Works for both Student and Recruiter
-     * because both inherit from User.
-     */
+    // ADD USER
     public void addUser(User user) {
 
         if (count < users.length) {
             users[count] = user;
             count++;
-
-            System.out.println("User added successfully!");
-
+            System.out.println("User added successfully !");
         } else {
-            System.out.println("User limit reached!");
+            System.out.println("User limit reached !");
         }
     }
 
-    /*
-     * Displays all users stored in the system.
-     * Uses polymorphism — displayInfo() behaves
-     * differently for Student and Recruiter.
-     */
+    // DISPLAY USERS
     public void displayAllUsers() {
 
         if (count == 0) {
-            System.out.println("No users found!");
+            System.out.println("No users found !");
             return;
         }
-
-        System.out.println("\n--- All Registered Users ---");
 
         for (int i = 0; i < count; i++) {
             users[i].displayInfo();
@@ -53,36 +33,85 @@ public class UserService {
         }
     }
 
-    /*
-     * Validates email format.
-     * Simple backend validation rule:
-     * Must contain '@' and '.'
-     */
+    // EMAIL VALIDATION
     public boolean isEmailValid(String email) {
 
-    if (email == null) return false;
+        if (email == null) return false;
 
-    int atPos = email.indexOf("@");
-    int dotPos = email.lastIndexOf(".");
+        int atPos = email.indexOf("@");
+        int dotPos = email.lastIndexOf(".");
 
-    return atPos > 0 &&
-           dotPos > atPos + 1 &&
-           dotPos < email.length() - 1;
-}
+        return atPos > 0 &&
+               dotPos > atPos + 1 &&
+               dotPos < email.length() - 1;
+    }
 
-    /*
-     * Ensures ID is unique before adding.
-     * Prevents duplicate user entries.
-     */
+    // CHECK UNIQUE ID
     public boolean isIdUnique(int id) {
 
         for (int i = 0; i < count; i++) {
-
             if (users[i].getId() == id) {
                 return false;
             }
         }
-
         return true;
+    }
+
+    // 🔍 SEARCH USER
+    public void searchUserById(int id) {
+
+        for (int i = 0; i < count; i++) {
+
+            if (users[i].getId() == id) {
+                System.out.println("User Found !");
+                users[i].displayInfo();
+                return;
+            }
+        }
+
+        System.out.println("User not found !");
+    }
+
+    // ❌ DELETE USER
+    public void deleteUser(int id) {
+
+        for (int i = 0; i < count; i++) {
+
+            if (users[i].getId() == id) {
+
+                for (int j = i; j < count - 1; j++) {
+                    users[j] = users[j + 1];
+                }
+
+                users[count - 1] = null;
+                count--;
+
+                System.out.println("User deleted successfully !");
+                return;
+            }
+        }
+
+        System.out.println("User not found !");
+    }
+
+    // 🔄 UPDATE EMAIL
+    public void updateEmail(int id, String newEmail) {
+
+        for (int i = 0; i < count; i++) {
+
+            if (users[i].getId() == id) {
+
+                if (!isEmailValid(newEmail)) {
+                    System.out.println("Invalid email !");
+                    return;
+                }
+
+                users[i].setEmail(newEmail);
+                System.out.println("Email updated successfully !");
+                return;
+            }
+        }
+
+        System.out.println("User not found !");
     }
 }
