@@ -1,34 +1,30 @@
 package service;
 
+import java.util.ArrayList;
 import model.User;
 
 public class UserService {
 
-    private User[] users = new User[10];
-    private int count = 0;
+    // Dynamic storage
+    private ArrayList<User> users = new ArrayList<>();
 
     // ADD USER
     public void addUser(User user) {
 
-        if (count < users.length) {
-            users[count] = user;
-            count++;
-            System.out.println("User added successfully !");
-        } else {
-            System.out.println("User limit reached !");
-        }
+        users.add(user);
+        System.out.println("User added successfully !");
     }
 
     // DISPLAY USERS
     public void displayAllUsers() {
 
-        if (count == 0) {
+        if (users.isEmpty()) {
             System.out.println("No users found !");
             return;
         }
 
-        for (int i = 0; i < count; i++) {
-            users[i].displayInfo();
+        for (User user : users) {
+            user.displayInfo();
             System.out.println();
         }
     }
@@ -49,22 +45,22 @@ public class UserService {
     // CHECK UNIQUE ID
     public boolean isIdUnique(int id) {
 
-        for (int i = 0; i < count; i++) {
-            if (users[i].getId() == id) {
+        for (User user : users) {
+            if (user.getId() == id) {
                 return false;
             }
         }
         return true;
     }
 
-    // 🔍 SEARCH USER
+    // SEARCH USER
     public void searchUserById(int id) {
 
-        for (int i = 0; i < count; i++) {
+        for (User user : users) {
 
-            if (users[i].getId() == id) {
+            if (user.getId() == id) {
                 System.out.println("User Found !");
-                users[i].displayInfo();
+                user.displayInfo();
                 return;
             }
         }
@@ -72,20 +68,13 @@ public class UserService {
         System.out.println("User not found !");
     }
 
-    // ❌ DELETE USER
+    // DELETE USER
     public void deleteUser(int id) {
 
-        for (int i = 0; i < count; i++) {
+        for (User user : users) {
 
-            if (users[i].getId() == id) {
-
-                for (int j = i; j < count - 1; j++) {
-                    users[j] = users[j + 1];
-                }
-
-                users[count - 1] = null;
-                count--;
-
+            if (user.getId() == id) {
+                users.remove(user);
                 System.out.println("User deleted successfully !");
                 return;
             }
@@ -94,19 +83,19 @@ public class UserService {
         System.out.println("User not found !");
     }
 
-    // 🔄 UPDATE EMAIL
+    // UPDATE EMAIL
     public void updateEmail(int id, String newEmail) {
 
-        for (int i = 0; i < count; i++) {
+        for (User user : users) {
 
-            if (users[i].getId() == id) {
+            if (user.getId() == id) {
 
                 if (!isEmailValid(newEmail)) {
                     System.out.println("Invalid email !");
                     return;
                 }
 
-                users[i].setEmail(newEmail);
+                user.setEmail(newEmail);
                 System.out.println("Email updated successfully !");
                 return;
             }
