@@ -7,6 +7,8 @@ public class UserService {
 
     // Dynamic storage
     private ArrayList<User> users = new ArrayList<>();
+    private final String FILE_NAME = "users.txt";
+
 
     // ADD USER
     public void addUser(User user) {
