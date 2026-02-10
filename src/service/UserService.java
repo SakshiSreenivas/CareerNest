@@ -132,7 +132,7 @@ public class UserService {
         oos.writeObject(users);
 
     } catch (IOException e) {
-        System.out.println("Error saving users ❌");
+        System.out.println("Error saving users !");
     }
 }
 
@@ -148,10 +148,10 @@ private void loadUsersFromFile() {
              new FileInputStream(FILE_NAME))) {
 
         users = (ArrayList<User>) ois.readObject();
-        System.out.println("Users loaded successfully 🔄");
+        System.out.println("Users loaded successfully 1");
 
     } catch (IOException | ClassNotFoundException e) {
-        System.out.println("Error loading users ❌");
+        System.out.println("Error loading users !");
     }
 }
 }
