@@ -1,5 +1,8 @@
 package service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import model.User;
 
@@ -14,6 +17,7 @@ public class UserService {
     public void addUser(User user) {
 
         users.add(user);
+        saveUsersToFile();
         System.out.println("User added successfully !");
     }
 
@@ -105,4 +109,24 @@ public class UserService {
 
         System.out.println("User not found !");
     }
+    private void saveUsersToFile() {
+
+    try (BufferedWriter writer =
+         new BufferedWriter(new FileWriter(FILE_NAME))) {
+
+        for (User user : users) {
+
+            writer.write(
+                user.getId() + "," +
+                user.getClass().getSimpleName()
+            );
+
+            writer.newLine();
+        }
+
+    } catch (IOException e) {
+        System.out.println("Error saving users ❌");
+    }
+}
+
 }
