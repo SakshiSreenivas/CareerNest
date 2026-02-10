@@ -3,9 +3,11 @@ package service;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import model.User;
 
@@ -118,23 +120,17 @@ public class UserService {
     }
     private void saveUsersToFile() {
 
-    try (BufferedWriter writer =
-         new BufferedWriter(new FileWriter(FILE_NAME))) {
+    try (ObjectOutputStream oos =
+         new ObjectOutputStream(
+             new FileOutputStream(FILE_NAME))) {
 
-        for (User user : users) {
-
-            writer.write(
-                user.getId() + "," +
-                user.getClass().getSimpleName()
-            );
-
-            writer.newLine();
-        }
+        oos.writeObject(users);
 
     } catch (IOException e) {
         System.out.println("Error saving users ❌");
     }
 }
+
 private void loadUsersFromFile() {
 
         File file = new File(FILE_NAME);
