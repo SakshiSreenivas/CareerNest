@@ -13,7 +13,8 @@ public class UserService {
 
     // Dynamic storage
     private ArrayList<User> users = new ArrayList<>();
-    private final String FILE_NAME = "users.txt";
+    private final String FILE_NAME = "users.dat";
+
      public UserService() {
         loadUsersFromFile();
     }
