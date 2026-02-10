@@ -1,6 +1,7 @@
 package model;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
 
     protected int id;
     protected String name;
@@ -9,7 +10,7 @@ public class User {
     public User(int id, String name, String email) {
         this.id = id;
         this.name = name;
-        this.email = email;
+        this.email = email; 
     }
 
     public int getId() {
