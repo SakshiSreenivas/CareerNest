@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import model.User;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class UserService {
 
@@ -131,23 +136,22 @@ public class UserService {
     }
 }
 
+@SuppressWarnings("unchecked")
 private void loadUsersFromFile() {
 
-        File file = new File(FILE_NAME);
+    File file = new File(FILE_NAME);
 
-        if (!file.exists()) return;
+    if (!file.exists()) return;
 
-        try (BufferedReader reader =
-             new BufferedReader(new FileReader(FILE_NAME))) {
+    try (ObjectInputStream ois =
+         new ObjectInputStream(
+             new FileInputStream(FILE_NAME))) {
 
-            String line;
+        users = (ArrayList<User>) ois.readObject();
+        System.out.println("Users loaded successfully 🔄");
 
-            while ((line = reader.readLine()) != null) {
-                System.out.println("Loaded: " + line);
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error loading users ❌");
-        }
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Error loading users ❌");
     }
+}
 }
