@@ -1,6 +1,9 @@
 package service;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +14,9 @@ public class UserService {
     // Dynamic storage
     private ArrayList<User> users = new ArrayList<>();
     private final String FILE_NAME = "users.txt";
+     public UserService() {
+        loadUsersFromFile();
+    }
 
 
     // ADD USER
@@ -128,5 +134,23 @@ public class UserService {
         System.out.println("Error saving users ❌");
     }
 }
+private void loadUsersFromFile() {
 
+        File file = new File(FILE_NAME);
+
+        if (!file.exists()) return;
+
+        try (BufferedReader reader =
+             new BufferedReader(new FileReader(FILE_NAME))) {
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                System.out.println("Loaded: " + line);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error loading users ❌");
+        }
+    }
 }
