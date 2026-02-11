@@ -24,10 +24,18 @@ public class UserService {
 
     // ADD USER
     public void addUser(User user) {
-        users.add(user);
-        saveUsersToFile();
-        System.out.println("User added successfully !");
+
+    if (user == null) {
+        System.out.println("Invalid user data !");
+        return;
     }
+
+    users.add(user);
+    saveUsersToFile();
+
+    System.out.println("User added successfully !");
+}
+
 
     // DISPLAY USERS
     public void displayAllUsers() {
