@@ -1,20 +1,15 @@
 package service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import model.User;
 import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
+import java.io.EOFException;          // ✅ Needed
 import java.util.ArrayList;
 
+import model.User;
 
 public class UserService {
 
@@ -22,14 +17,13 @@ public class UserService {
     private ArrayList<User> users = new ArrayList<>();
     private final String FILE_NAME = "users.dat";
 
-     public UserService() {
+    // Constructor → auto load
+    public UserService() {
         loadUsersFromFile();
     }
 
-
     // ADD USER
     public void addUser(User user) {
-
         users.add(user);
         saveUsersToFile();
         System.out.println("User added successfully !");
@@ -88,13 +82,14 @@ public class UserService {
         System.out.println("User not found !");
     }
 
-    // DELETE USER
+    // DELETE USER (Safe remove)
     public void deleteUser(int id) {
 
-        for (User user : users) {
+        for (int i = 0; i < users.size(); i++) {
 
-            if (user.getId() == id) {
-                users.remove(user);
+            if (users.get(i).getId() == id) {
+                users.remove(i);
+                saveUsersToFile();   // persist delete
                 System.out.println("User deleted successfully !");
                 return;
             }
@@ -116,6 +111,7 @@ public class UserService {
                 }
 
                 user.setEmail(newEmail);
+                saveUsersToFile();   // persist update
                 System.out.println("Email updated successfully !");
                 return;
             }
@@ -123,42 +119,44 @@ public class UserService {
 
         System.out.println("User not found !");
     }
+
+    // SAVE TO FILE
     private void saveUsersToFile() {
 
-    try (ObjectOutputStream oos =
-         new ObjectOutputStream(
-             new FileOutputStream(FILE_NAME))) {
+        try (ObjectOutputStream oos =
+             new ObjectOutputStream(
+                 new FileOutputStream(FILE_NAME))) {
 
-        oos.writeObject(users);
+            oos.writeObject(users);
 
-    } catch (IOException e) {
-        System.out.println("Error saving users !");
-    }
-}
-
-@SuppressWarnings("unchecked")
-private void loadUsersFromFile() {
-
-    File file = new File(FILE_NAME);
-
-    if (!file.exists()) {
-        System.out.println("No previous data found. Starting fresh.");
-        return;
+        } catch (IOException e) {
+            System.out.println("Error saving users !");
+        }
     }
 
-    try (ObjectInputStream ois =
-         new ObjectInputStream(
-             new FileInputStream(FILE_NAME))) {
+    // LOAD FROM FILE
+    @SuppressWarnings("unchecked")
+    private void loadUsersFromFile() {
 
-        users = (ArrayList<User>) ois.readObject();
-        System.out.println("Users loaded successfully !");
+        File file = new File(FILE_NAME);
 
-    } catch (EOFException e) {
-        System.out.println("File empty — starting fresh.");
+        if (!file.exists()) {
+            System.out.println("No previous data found. Starting fresh.");
+            return;
+        }
 
-    } catch (IOException | ClassNotFoundException e) {
-        System.out.println("Error loading users !");
+        try (ObjectInputStream ois =
+             new ObjectInputStream(
+                 new FileInputStream(FILE_NAME))) {
+
+            users = (ArrayList<User>) ois.readObject();
+            System.out.println("Users loaded successfully !");
+
+        } catch (EOFException e) {
+            System.out.println("File empty — starting fresh.");
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading users !");
+        }
     }
-}
-
 }
