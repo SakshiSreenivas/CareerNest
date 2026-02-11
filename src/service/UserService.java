@@ -123,16 +123,16 @@ public class UserService {
     // SAVE TO FILE
     private void saveUsersToFile() {
 
-        try (ObjectOutputStream oos =
-             new ObjectOutputStream(
-                 new FileOutputStream(FILE_NAME))) {
+    try (ObjectOutputStream oos =
+         new ObjectOutputStream(
+             new FileOutputStream(FILE_NAME))) {
 
-            oos.writeObject(users);
+        oos.writeObject(users);
 
-        } catch (IOException e) {
-            System.out.println("Error saving users !");
-        }
+    } catch (IOException e) {
+        System.out.println("Error saving users !");
     }
+}
 
     // LOAD FROM FILE
     @SuppressWarnings("unchecked")
