@@ -44,17 +44,16 @@ public class UserService {
     }
 
     // EMAIL VALIDATION
+    //regex method -> industry accepted 
     public boolean isEmailValid(String email) {
 
-        if (email == null) return false;
+    if (email == null) return false;
 
-        int atPos = email.indexOf("@");
-        int dotPos = email.lastIndexOf(".");
+    return email.matches(
+        "^[A-Za-z0-9+_.-]+@(.+)$"
+    );
+}
 
-        return atPos > 0 &&
-               dotPos > atPos + 1 &&
-               dotPos < email.length() - 1;
-    }
 
     // CHECK UNIQUE ID
     public boolean isIdUnique(int id) {
