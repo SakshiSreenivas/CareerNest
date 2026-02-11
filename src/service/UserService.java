@@ -141,17 +141,24 @@ private void loadUsersFromFile() {
 
     File file = new File(FILE_NAME);
 
-    if (!file.exists()) return;
+    if (!file.exists()) {
+        System.out.println("No previous data found. Starting fresh.");
+        return;
+    }
 
     try (ObjectInputStream ois =
          new ObjectInputStream(
              new FileInputStream(FILE_NAME))) {
 
         users = (ArrayList<User>) ois.readObject();
-        System.out.println("Users loaded successfully 1");
+        System.out.println("Users loaded successfully !");
+
+    } catch (EOFException e) {
+        System.out.println("File empty — starting fresh.");
 
     } catch (IOException | ClassNotFoundException e) {
         System.out.println("Error loading users !");
     }
 }
+
 }
