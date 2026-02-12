@@ -96,18 +96,23 @@ public class UserService {
     // DELETE USER (Safe remove)
     public void deleteUser(int id) {
 
-        for (int i = 0; i < users.size(); i++) {
+    for (User user : users) {
 
-            if (users.get(i).getId() == id) {
-                users.remove(i);
-                saveUsersToFile();   // persist delete
-                System.out.println("User deleted successfully !");
-                return;
-            }
+        if (user.getId() == id) {
+
+            users.remove(user);
+            saveUsersToFile();
+
+            logActivity("User deleted: ID " + id);
+
+            System.out.println("User deleted successfully 🗑️");
+            return;
         }
-
-        System.out.println("User not found !");
     }
+
+    System.out.println("User not found !");
+}
+
 
     // UPDATE EMAIL
     public void updateEmail(int id, String newEmail) {
