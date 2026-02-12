@@ -2,10 +2,12 @@ package service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
+import java.io.BufferedWriter;
 import java.io.EOFException;          // ✅ Needed
 import java.util.ArrayList;
 
@@ -166,4 +168,22 @@ public class UserService {
             System.out.println("Error loading users !");
         }
     }
+    private void logActivity(String message) {
+
+    try (BufferedWriter writer =
+         new BufferedWriter(
+             new FileWriter("activity.log", true))) {
+
+        writer.write(
+            java.time.LocalDateTime.now()
+            + " - " + message
+        );
+
+        writer.newLine();
+
+    } catch (IOException e) {
+        System.out.println("Logging failed ❌");
+    }
+}
+
 }
