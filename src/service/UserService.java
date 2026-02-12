@@ -35,6 +35,8 @@ public class UserService {
     users.add(user);
     saveUsersToFile();
 
+    logActivity("User added: ID " + user.getId());
+
     System.out.println("User added successfully !");
 }
 
@@ -182,7 +184,7 @@ public class UserService {
         writer.newLine();
 
     } catch (IOException e) {
-        System.out.println("Logging failed ❌");
+        System.out.println("Logging failed !");
     }
 }
 
