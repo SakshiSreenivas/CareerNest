@@ -105,7 +105,7 @@ public class UserService {
 
             logActivity("User deleted: ID " + id);
 
-            System.out.println("User deleted successfully 🗑️");
+            System.out.println("User deleted successfully !");
             return;
         }
     }
@@ -117,24 +117,30 @@ public class UserService {
     // UPDATE EMAIL
     public void updateEmail(int id, String newEmail) {
 
-        for (User user : users) {
+    for (User user : users) {
 
-            if (user.getId() == id) {
+        if (user.getId() == id) {
 
-                if (!isEmailValid(newEmail)) {
-                    System.out.println("Invalid email !");
-                    return;
-                }
-
-                user.setEmail(newEmail);
-                saveUsersToFile();   // persist update
-                System.out.println("Email updated successfully !");
+            if (!isEmailValid(newEmail)) {
+                System.out.println("Invalid email !");
                 return;
             }
-        }
 
-        System.out.println("User not found !");
+            user.setEmail(newEmail);
+            saveUsersToFile();
+
+            logActivity(
+                "Email updated for ID " + id
+            );
+
+            System.out.println("Email updated successfully !");
+            return;
+        }
     }
+
+    System.out.println("User not found !");
+}
+
 
     // SAVE TO FILE
     private void saveUsersToFile() {
