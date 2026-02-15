@@ -131,7 +131,7 @@ public class Main {
                 case 5:
                     System.out.print("Enter ID to delete: ");
                     int deleteId = sc.nextInt();
-                    service.deleteUser(deleteId);
+                    service.deleteUser(deleteId, "RECRUITER");
                     break;
 
                 case 6:
