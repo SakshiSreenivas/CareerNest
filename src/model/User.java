@@ -9,7 +9,7 @@ public class User implements Serializable {
     protected String role;
 
 
-    public User(int id, String name, String email) {
+    public User(int id, String name, String email,String role) {
         this.id = id;
         this.name = name;
         this.email = email; 
