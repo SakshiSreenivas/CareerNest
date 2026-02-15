@@ -4,7 +4,7 @@ public class Recruiter extends User {
     private String companyName;
 
     public Recruiter(int id, String name, String email, String companyName) {
-        super(id, name, email);
+        super(id, name, email,"RECRUITER");
         this.companyName = companyName;
     }
 
