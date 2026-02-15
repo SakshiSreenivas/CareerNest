@@ -2,6 +2,7 @@ package app;
 
 import java.util.Scanner;
 import model.Student;
+import model.User;
 import model.Recruiter;
 import service.UserService;
 
@@ -12,6 +13,7 @@ import service.UserService;
 public class Main {
 
     public static void main(String[] args) {
+        User currentUser = null;
 
         // Scanner for user input
         Scanner sc = new Scanner(System.in);
