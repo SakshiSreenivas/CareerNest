@@ -94,7 +94,12 @@ public class UserService {
     }
 
     // DELETE USER (Safe remove)
-    public void deleteUser(int id) {
+    public void deleteUser(int id, String requesterRole) {
+
+    if (!requesterRole.equals("RECRUITER")) {
+        System.out.println("Access denied !");
+        return;
+    }
 
     for (User user : users) {
 
@@ -102,7 +107,6 @@ public class UserService {
 
             users.remove(user);
             saveUsersToFile();
-
             logActivity("User deleted: ID " + id);
 
             System.out.println("User deleted successfully !");
