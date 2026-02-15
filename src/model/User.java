@@ -34,4 +34,7 @@ public class User implements Serializable {
         System.out.println("Email: " + email);
         System.out.println("Role: " + role);
     }
+    public String getEmail() {
+    return email;
+}
 }
