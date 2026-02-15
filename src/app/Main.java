@@ -13,6 +13,8 @@ import service.UserService;
 public class Main {
 
     public static void main(String[] args) {
+
+        // Tracks logged-in user session
         User currentUser = null;
 
         // Scanner for user input
@@ -26,13 +28,15 @@ public class Main {
 
             // Menu UI
             System.out.println("\n=== CareerNest Menu ===");
-            System.out.println("1. Add Student");
-            System.out.println("2. Add Recruiter");
-            System.out.println("3. View All Users");
-            System.out.println("4. Search User");
-            System.out.println("5. Delete User");
-            System.out.println("6. Update Email");
-            System.out.println("7. Exit");
+            System.out.println("1. Login");
+            System.out.println("2. Add Student");
+            System.out.println("3. Add Recruiter");
+            System.out.println("4. View All Users");
+            System.out.println("5. Search User");
+            System.out.println("6. Delete User");
+            System.out.println("7. Update Email");
+            System.out.println("8. Logout");
+            System.out.println("9. Exit");
             System.out.print("Enter choice: ");
 
             int choice = sc.nextInt();
@@ -40,11 +44,15 @@ public class Main {
 
             switch (choice) {
 
-                /*
-                 * CASE 1 → Add Student
-                 * Collects input → Validates → Stores
-                 */
+                // CASE 1 → LOGIN
                 case 1:
+                    System.out.print("Enter email: ");
+                    String email = sc.nextLine();
+                    currentUser = service.login(email);
+                    break;
+
+                // CASE 2 → ADD STUDENT
+                case 2:
 
                     System.out.print("Enter Student ID: ");
                     int sid = sc.nextInt();
@@ -73,19 +81,14 @@ public class Main {
                     int year = sc.nextInt();
                     sc.nextLine();
 
-                    // Create Student object
                     Student student =
-                        new Student(sid, sname,
-                                    semail, branch, year);
+                        new Student(sid, sname, semail, branch, year);
 
-                    // Send to service layer
                     service.addUser(student);
                     break;
 
-                /*
-                 * CASE 2 → Add Recruiter
-                 */
-                case 2:
+                // CASE 3 → ADD RECRUITER
+                case 3:
 
                     System.out.print("Enter Recruiter ID: ");
                     int rid = sc.nextInt();
@@ -111,32 +114,43 @@ public class Main {
                     String company = sc.nextLine();
 
                     Recruiter recruiter =
-                        new Recruiter(rid, rname,
-                                      remail, company);
+                        new Recruiter(rid, rname, remail, company);
 
                     service.addUser(recruiter);
                     break;
 
-                /*
-                 * CASE 3 → Display All Users
-                 */
-                case 3:
+                // CASE 4 → VIEW USERS
+                case 4:
                     service.displayAllUsers();
                     break;
 
-                case 4:
+                // CASE 5 → SEARCH USER
+                case 5:
                     System.out.print("Enter ID to search: ");
                     int searchId = sc.nextInt();
                     service.searchUserById(searchId);
                     break;
 
-                case 5:
+                // CASE 6 → DELETE USER
+                case 6:
+
+                    if (currentUser == null) {
+                        System.out.println("Please login first ❌");
+                        break;
+                    }
+
                     System.out.print("Enter ID to delete: ");
                     int deleteId = sc.nextInt();
-                    service.deleteUser(deleteId, "RECRUITER");
+
+                    service.deleteUser(
+                        deleteId,
+                        currentUser.getRole()
+                    );
                     break;
 
-                case 6:
+                // CASE 7 → UPDATE EMAIL
+                case 7:
+
                     System.out.print("Enter ID: ");
                     int uid = sc.nextInt();
                     sc.nextLine();
@@ -147,11 +161,20 @@ public class Main {
                     service.updateEmail(uid, newEmail);
                     break;
 
-                case 7:
+                // CASE 8 → LOGOUT
+                case 8:
+                    currentUser = null;
+                    System.out.println("Logged out successfully.");
+                    break;
+
+                // CASE 9 → EXIT
+                case 9:
                     System.out.println("Exiting...");
                     sc.close();
                     return;
 
+                default:
+                    System.out.println("Invalid choice !");
             }
         }
     }
