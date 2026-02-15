@@ -135,7 +135,7 @@ public class Main {
                 case 6:
 
                     if (currentUser == null) {
-                        System.out.println("Please login first ❌");
+                        System.out.println("Please login first !");
                         break;
                     }
 
