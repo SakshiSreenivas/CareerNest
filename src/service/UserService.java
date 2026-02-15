@@ -202,5 +202,28 @@ public class UserService {
         System.out.println("Logging failed !");
     }
 }
+public User login(String email) {
+
+    for (User user : users) {
+
+        if (user.getEmail().equals(email)) {
+
+            System.out.println(
+                "Login successful as " +
+                user.getRole()
+            );
+
+            logActivity(
+                "User logged in: ID " +
+                user.getId()
+            );
+
+            return user;
+        }
+    }
+
+    System.out.println("User not found !");
+    return null;
+}
 
 }
