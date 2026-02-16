@@ -222,4 +222,10 @@ public User login(String email, String password) {
     System.out.println("Invalid credentials !");
     return null;
 }
+private String encryptPassword(String password) {
+
+    return Integer.toHexString(
+        password.hashCode()
+    );
+}
 }
