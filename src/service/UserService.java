@@ -3,6 +3,8 @@ package service;
 import java.util.ArrayList;
 import java.io.*;
 import model.User;
+import java.security.MessageDigest;
+
 
 public class UserService {
 
