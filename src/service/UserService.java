@@ -202,28 +202,24 @@ public class UserService {
         System.out.println("Logging failed !");
     }
 }
-public User login(String email) {
+public User login(String email, String password) {
 
     for (User user : users) {
 
-        if (user.getEmail().equals(email)) {
+        if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
 
             System.out.println(
-                "Login successful as " +
-                user.getRole()
+                "Login successful as " + user.getRole()
             );
 
-            logActivity(
-                "User logged in: ID " +
-                user.getId()
+            logActivity("User logged in: ID " + user.getId()
             );
 
             return user;
         }
     }
 
-    System.out.println("User not found !");
+    System.out.println("Invalid credentials !");
     return null;
 }
-
 }
